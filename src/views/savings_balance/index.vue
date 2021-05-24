@@ -956,6 +956,11 @@ export default {
     },
     // 新增指标确定按钮
     async addDataSave () {
+      if (this.addDataRC === 'xAxis') {
+        this.type = 'row'
+      } else {
+        this.type = 'column'
+      }
       await this.initData()
       this.dataAddVisible = false
     }
