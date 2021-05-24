@@ -202,7 +202,7 @@
             round
             :type="filterCanClick?'success':'danger'"
             icon="el-icon-plus"
-            @click="filterCanClick?filterAddResult:$message.warning('请输入完整参数后再点击按钮')"
+            @click="filterAddResult"
           />
         </el-col>
         <!--        选择结果-->
@@ -504,7 +504,7 @@ export default {
     async initData () {
       this.yLabelList = []
       this.xLabelMap = {}
-      // 接口请求
+      // 接口请求 (Axios)
       const params = new FormData()
       params.append('tablename', 'income_nationalpercapita_info')
       params.append('count', this.timeSelect === '' ? 5 : this.timeSelect)
