@@ -202,7 +202,7 @@
             round
             :type="filterCanClick?'success':'danger'"
             icon="el-icon-plus"
-            @click="filterAddResult"
+            @click="filterCanClick?filterAddResult():$message.warning('请输入完整参数后再点击按钮')"
           />
         </el-col>
         <!--        选择结果-->

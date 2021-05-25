@@ -202,7 +202,7 @@
             round
             :type="filterCanClick?'success':'danger'"
             icon="el-icon-plus"
-            @click="filterCanClick?filterAddResult:$message.warning('请输入完整参数后再点击按钮')"
+            @click="filterCanClick?filterAddResult():$message.warning('请输入完整参数后再点击按钮')"
           />
         </el-col>
         <!--        选择结果-->
@@ -483,10 +483,10 @@ export default {
     },
     listenFilterInput (val) {
       console.log(this.xLableList)
-      console.log('筛选条件:', val)
       if (val.filterFirstSelect !== '' && val.filterSecondSelect !== '' && val.filterSelectNum !== 0) {
         this.filterCanClick = true
       }
+      console.log('筛选条件:', val, this.filterCanClick)
     }
   },
   mounted () {
@@ -842,6 +842,7 @@ export default {
     },
     // 筛选添加到右侧card中
     filterAddResult () {
+      console.log(1)
       // 添加到显示数组
       const tagName = this.filterFirstSelect + ' ' + this.filterSecondSelect + ' ' + this.filterSelectNum
 
