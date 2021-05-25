@@ -70,8 +70,8 @@
             <p
               class="page-login--options"
               flex="main:justify cross:center">
-              <span><d2-icon name="question-circle"/> 忘记密码</span>
-              <span>注册用户</span>
+              <span><d2-icon name="question-circle"/>忘记密码</span>
+              <span @click="registerUser">注册用户</span>
             </p>
             <!-- quick login -->
 <!--            <el-button class="page-login&#45;&#45;quick" size="default" type="info" @click="dialogVisible = true">-->
@@ -117,6 +117,20 @@
         </el-col>
       </el-row>
     </el-dialog>
+    <el-dialog title="用户注册" :visible.sync="dialogTableVisible" width="15%">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input v-model="form.username" size="small"></el-input>
+        </el-form-item>
+        <el-form-item label="用户密码">
+          <el-input v-model="form.password" size="small"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit" size="small">立即注册</el-button>
+          <el-button @click="dialogTableVisible=false;form.password='';form.username=''" size="small">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -124,6 +138,7 @@
 import dayjs from 'dayjs'
 import { mapActions } from 'vuex'
 import localeMixin from '@/locales/mixin.js'
+import api from '@/api'
 export default {
   mixins: [
     localeMixin
@@ -180,6 +195,11 @@ export default {
             trigger: 'blur'
           }
         ]
+      },
+      dialogTableVisible: false,
+      form: {
+        username: '',
+        password: ''
       }
     }
   },
@@ -230,6 +250,20 @@ export default {
           this.$message.error('表单校验失败，请检查')
         }
       })
+    },
+    registerUser () {
+      this.dialogTableVisible = true
+    },
+    async onSubmit () {
+      this.dialogTableVisible = true
+      const params = new FormData()
+      params.append('username', this.form.username)
+      params.append('password', this.form.password)
+      const result = await api.SET_USER({
+        username: this.form.username,
+        password: this.form.password
+      })
+      console.log(result)
     }
   }
 }

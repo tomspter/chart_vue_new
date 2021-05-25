@@ -898,11 +898,13 @@ export default {
     // 对行运算
     async tableCalcFunc (func) {
       this.func = func
+      this.timeSelect = this.timeSelect2
       await this.initData()
     },
     // 时间跨度选择
     async timeSelectFunc (val) {
       this.timeSelect = val
+      this.timeSelect2 = val
       await this.initData()
     },
     // 饼图中横坐标选择

@@ -35,5 +35,12 @@ export default ({ service, request, serviceForMock, requestForMock, mock, faker,
       method: 'post',
       data
     })
+  },
+  SET_USER (data) {
+    return request({
+      url: '/register',
+      method: 'post',
+      data
+    })
   }
 })
