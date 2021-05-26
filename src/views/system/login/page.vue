@@ -123,7 +123,7 @@
           <el-input v-model="form.username" size="small"></el-input>
         </el-form-item>
         <el-form-item label="用户密码">
-          <el-input v-model="form.password" size="small"></el-input>
+          <el-input v-model="form.password" size="small" show-password></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" size="small">立即注册</el-button>
@@ -259,10 +259,15 @@ export default {
       const params = new FormData()
       params.append('username', this.form.username)
       params.append('password', this.form.password)
-      const result = await api.SET_USER({
-        username: this.form.username,
-        password: this.form.password
-      })
+      const result = await api.SET_USER(params)
+      if (result.name === this.form.username) {
+        this.$message.success('注册成功')
+        this.form.username = ''
+        this.form.password = ''
+        this.dialogTableVisible = false
+      } else {
+        this.$message.error('注册失败')
+      }
       console.log(result)
     }
   }
